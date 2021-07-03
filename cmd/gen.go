@@ -34,13 +34,26 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(gen_2d())
+		gen_2d()
 	},
 }
 
-func gen_2d() [][]int {
-	x := 5
-	y := 5
+func gen_2d() {
+	grid := initialize_2d(5, 5)
+	fmt.Println(grid)
+
+	count := 10
+	for i := 0; i < count; i++ {
+		grid = calc_2d(grid)
+		fmt.Println(grid)
+	}
+}
+
+func calc_2d(grid [][]int) [][]int {
+	return grid
+}
+
+func initialize_2d(x int, y int) [][]int {
 	grid := [][]int{}
 	row := []int{}
 	rand.Seed(time.Now().UnixNano())
