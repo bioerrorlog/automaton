@@ -1,5 +1,5 @@
 /*
-Copyright © 2021 NAME HERE <EMAIL ADDRESS>
+Copyright_index © 2021 NAME HERE <EMAIL ADDRESS>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -40,34 +40,69 @@ to quickly create a Cobra application.`,
 }
 
 func gen_1d() {
-	grid := initialize_1d(5, 5)
-	fmt.Println(grid)
+	line := initialize_1d(20)
+	fmt.Println(line)
 
-	count := 10
+	count := 100
 	for i := 0; i < count; i++ {
-		grid = calc_1d(grid)
-		fmt.Println(grid)
+		line = calc_1d(line)
+		fmt.Println(line)
 	}
 }
 
-func calc_1d(grid [][]int) [][]int {
-	return grid
+func calc_1d(line []int) []int {
+	result := []int{}
+	var left_index, center_index, right_index, pattern int
+
+	for i := range line {
+		if i == 0 {
+			left_index = len(line) - 1
+		} else {
+			left_index = i - 1
+		}
+		center_index = i
+		if i == len(line)-1 {
+			right_index = 0
+		} else {
+			right_index = i + 1
+		}
+		pattern = line[left_index]*100 + line[center_index]*10 + line[right_index]
+
+		// Rule 30
+		switch pattern {
+		case 0:
+			result = append(result, 0)
+		case 1:
+			result = append(result, 1)
+		case 10:
+			result = append(result, 1)
+		case 11:
+			result = append(result, 1)
+		case 100:
+			result = append(result, 1)
+		case 101:
+			result = append(result, 0)
+		case 110:
+			result = append(result, 0)
+		case 111:
+			result = append(result, 0)
+			// default
+			// TODO: error handling
+		}
+	}
+
+	return result
 }
 
-func initialize_1d(x int, y int) [][]int {
-	grid := [][]int{}
-	row := []int{}
+func initialize_1d(x int) []int {
+	line := []int{}
 	rand.Seed(time.Now().UnixNano())
 
-	for i := 0; i < y; i++ {
-		for j := 0; j < x; j++ {
-			row = append(row, rand.Intn(2))
-		}
-		grid = append(grid, row)
-		row = nil
+	for i := 0; i < x; i++ {
+		line = append(line, rand.Intn(2))
 	}
 
-	return grid
+	return line
 }
 
 func gen_2d() {
