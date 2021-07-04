@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -35,15 +36,26 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("play called")
-		scanner := bufio.NewScanner(os.Stdin)
-		for scanner.Scan() {
-			fmt.Println(scanner.Text())
-		}
-		if err := scanner.Err(); err != nil {
-			log.Println(err)
-		}
+		play_1d("■")
 	},
+}
+
+func play_1d(mark string) {
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		fmt.Println(replace_1d(scanner.Text(), mark))
+	}
+	if err := scanner.Err(); err != nil {
+		log.Println(err)
+	}
+}
+
+func replace_1d(str string, mark string) string {
+	str = strings.Replace(str, "[", "", -1)
+	str = strings.Replace(str, "]", "", -1)
+	str = strings.Replace(str, "0", " ", -1)
+	str = strings.Replace(str, "1", mark, -1)
+	return str
 }
 
 func init() {
