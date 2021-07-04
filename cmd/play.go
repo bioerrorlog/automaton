@@ -16,7 +16,10 @@ limitations under the License.
 package cmd
 
 import (
+	"bufio"
 	"fmt"
+	"log"
+	"os"
 
 	"github.com/spf13/cobra"
 )
@@ -33,6 +36,13 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("play called")
+		scanner := bufio.NewScanner(os.Stdin)
+		for scanner.Scan() {
+			fmt.Println(scanner.Text())
+		}
+		if err := scanner.Err(); err != nil {
+			log.Println(err)
+		}
 	},
 }
 

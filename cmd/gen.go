@@ -43,7 +43,7 @@ func gen_1d() {
 	line := initialize_1d(50)
 	fmt.Println(line)
 
-	count := 100
+	count := 100000
 	for i := 0; i < count; i++ {
 		line = calc_1d(line)
 		fmt.Println(line)
