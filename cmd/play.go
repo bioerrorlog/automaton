@@ -21,6 +21,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/spf13/cobra"
 )
@@ -44,6 +45,7 @@ func play_1d(mark string) {
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		fmt.Println(replace_1d(scanner.Text(), mark))
+		time.Sleep(time.Second / 30)
 	}
 	if err := scanner.Err(); err != nil {
 		log.Println(err)
