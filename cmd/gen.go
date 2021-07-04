@@ -40,7 +40,7 @@ to quickly create a Cobra application.`,
 }
 
 func gen_1d() {
-	line := initialize_1d(20)
+	line := initialize_1d(50)
 	fmt.Println(line)
 
 	count := 100
