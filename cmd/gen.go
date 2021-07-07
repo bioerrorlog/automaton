@@ -23,8 +23,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var Type string
-
 // genCmd represents the gen command
 var genCmd = &cobra.Command{
 	Use:   "gen",
@@ -146,6 +144,4 @@ func initialize_2d(x int, y int) [][]int {
 
 func init() {
 	rootCmd.AddCommand(genCmd)
-
-	genCmd.Flags().StringVarP(&Type, "type", "t", "1d", "Automaton type. Allowed values: [1d, 2d]")
 }
