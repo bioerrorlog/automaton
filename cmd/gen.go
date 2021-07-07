@@ -23,6 +23,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var Type string
+
 // genCmd represents the gen command
 var genCmd = &cobra.Command{
 	Use:   "gen",
@@ -35,7 +37,8 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		// gen_2d()
-		gen_1d()
+		// gen_1d()
+		fmt.Println(Type)
 	},
 }
 
@@ -139,13 +142,5 @@ func initialize_2d(x int, y int) [][]int {
 func init() {
 	rootCmd.AddCommand(genCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// genCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// genCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	genCmd.Flags().StringVarP(&Type, "type", "t", "1d", "Automaton type. Allowed values: [1d, 2d]")
 }
