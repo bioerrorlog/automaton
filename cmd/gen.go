@@ -46,7 +46,7 @@ to quickly create a Cobra application.`,
 }
 
 func gen_1d() {
-	line := initialize_1d(50)
+	line := initialize_1d(100)
 	fmt.Println(line)
 
 	count := 100000
@@ -112,10 +112,10 @@ func initialize_1d(x int) []int {
 }
 
 func gen_2d() {
-	grid := initialize_2d(5, 5)
+	grid := initialize_2d(50, 20)
 	fmt.Println(grid)
 
-	count := 10
+	count := 100000
 	for i := 0; i < count; i++ {
 		grid = calc_2d(grid)
 		fmt.Println(grid)

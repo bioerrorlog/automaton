@@ -39,9 +39,9 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		switch Type {
 		case "1d":
-			play_1d("■")
+			play_1d("@")
 		case "2d":
-			gen_2d()
+			play_2d("@")
 			// default
 			// TODO: error handling
 		}
@@ -52,6 +52,7 @@ func play_1d(mark string) {
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		fmt.Println(replace_1d(scanner.Text(), mark))
+		// fmt.Printf("\r%s", replace_1d(scanner.Text(), mark))
 		time.Sleep(time.Second / 30)
 	}
 	if err := scanner.Err(); err != nil {
@@ -61,7 +62,31 @@ func play_1d(mark string) {
 
 func replace_1d(str string, mark string) string {
 	str = strings.Replace(str, "[", "", -1)
+	str = strings.Replace(str, " ", "", -1)
 	str = strings.Replace(str, "]", "", -1)
+	str = strings.Replace(str, "0", " ", -1)
+	str = strings.Replace(str, "1", mark, -1)
+	return str
+}
+
+func play_2d(mark string) {
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		// fmt.Print("\033[?25l")     // Hide the cursor
+		fmt.Print("\033[H\033[2J") // Clear terminal
+		fmt.Print(replace_2d(scanner.Text(), mark))
+		// fmt.Print("\033[?25h") // Show the cursor
+		time.Sleep(time.Second / 30)
+	}
+	if err := scanner.Err(); err != nil {
+		log.Println(err)
+	}
+}
+
+func replace_2d(str string, mark string) string {
+	str = strings.Replace(str, "[", "", -1)
+	str = strings.Replace(str, " ", "", -1)
+	str = strings.Replace(str, "]", "\n", -1)
 	str = strings.Replace(str, "0", " ", -1)
 	str = strings.Replace(str, "1", mark, -1)
 	return str
@@ -69,14 +94,4 @@ func replace_1d(str string, mark string) string {
 
 func init() {
 	rootCmd.AddCommand(playCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// playCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// playCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
