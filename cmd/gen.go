@@ -46,7 +46,7 @@ to quickly create a Cobra application.`,
 }
 
 func gen_1d() {
-	line := initialize_1d(100)
+	line := Init1d(100)
 	fmt.Println(line)
 
 	count := 100000
@@ -100,7 +100,7 @@ func calc_1d(line []int) []int {
 	return result
 }
 
-func initialize_1d(x int) []int {
+func Init1d(x int) []int {
 	line := []int{}
 	rand.Seed(time.Now().UnixNano())
 
@@ -123,6 +123,24 @@ func gen_2d() {
 }
 
 func calc_2d(grid [][]int) [][]int {
+	for y := 0; y < len(grid); y++ {
+		row := grid[y]
+		for x := 0; x < len(row); x++ {
+			ty := y - 1
+			if ty < 0 {
+				ty = len(grid) - 1
+			}
+			tx := x - 1
+			if tx < 0 {
+				tx = len(row) - 1
+			}
+			if grid[ty][x] == 1 && grid[y][tx] == 0 {
+				grid[y][x] = 1
+			} else {
+				grid[y][x] = 0
+			}
+		}
+	}
 	return grid
 }
 
