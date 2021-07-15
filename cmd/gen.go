@@ -36,7 +36,7 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		switch Type {
 		case "1d":
-			gen_1d()
+			Gen1d()
 		case "2d":
 			gen_2d()
 			// default
@@ -45,7 +45,7 @@ to quickly create a Cobra application.`,
 	},
 }
 
-func gen_1d() {
+func Gen1d() {
 	line := Init1d(100)
 	fmt.Println(line)
 
