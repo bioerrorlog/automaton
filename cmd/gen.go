@@ -51,12 +51,12 @@ func Gen1d() {
 
 	count := 100000
 	for i := 0; i < count; i++ {
-		line = calc_1d(line)
+		line = Calc1d(line)
 		fmt.Println(line)
 	}
 }
 
-func calc_1d(line []int) []int {
+func Calc1d(line []int) []int {
 	result := []int{}
 	var left_index, center_index, right_index, pattern int
 
