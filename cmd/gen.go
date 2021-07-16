@@ -112,7 +112,7 @@ func Init1d(x int) []int {
 }
 
 func Gen2d() {
-	grid := Init2d(50, 20)
+	grid := Init2d(200, 50)
 	fmt.Println(grid)
 
 	count := 100000
