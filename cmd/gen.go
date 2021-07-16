@@ -123,25 +123,63 @@ func Gen2d() {
 }
 
 func Calc2d(grid [][]int) [][]int {
+	rGrid := [][]int{}
 	for y := 0; y < len(grid); y++ {
 		row := grid[y]
+		rRow := []int{}
 		for x := 0; x < len(row); x++ {
-			ty := y - 1
-			if ty < 0 {
-				ty = len(grid) - 1
+			// c[0] c[1] c[2]
+			// c[3]   m  c[4]
+			// c[5] c[6] c[7]
+			abo := y - 1
+			bel := y + 1
+			lef := x - 1
+			rig := x + 1
+			if abo < 0 {
+				abo = len(grid) - 1
 			}
-			tx := x - 1
-			if tx < 0 {
-				tx = len(row) - 1
+			if bel >= len(grid) {
+				bel = 0
 			}
-			if grid[ty][x] == 1 && grid[y][tx] == 0 {
-				grid[y][x] = 1
-			} else {
-				grid[y][x] = 0
+			if lef < 0 {
+				lef = len(row) - 1
 			}
+			if rig >= len(row) {
+				rig = 0
+			}
+
+			c := []int{}
+			c = append(c, grid[abo][lef])
+			c = append(c, grid[abo][x])
+			c = append(c, grid[abo][rig])
+			c = append(c, grid[y][lef])
+			c = append(c, grid[y][rig])
+			c = append(c, grid[bel][lef])
+			c = append(c, grid[bel][x])
+			c = append(c, grid[bel][rig])
+
+			m := grid[y][x]
+
+			s := 0
+			for i := 0; i < len(c); i++ {
+				s += c[i]
+			}
+
+			r := m
+			if m == 1 && s > 3 {
+				r = 0
+			} else if m == 1 && (s == 2 || s == 3) {
+				r = 1
+			} else if m == 1 && s < 2 {
+				r = 0
+			} else if m == 0 && s == 3 {
+				r = 1
+			}
+			rRow = append(rRow, r)
 		}
+		rGrid = append(rGrid, rRow)
 	}
-	return grid
+	return rGrid
 }
 
 func Init2d(x int, y int) [][]int {
