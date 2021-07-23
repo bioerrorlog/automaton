@@ -8,6 +8,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+	Width int
+	// Height int
+)
+
 // genCmd represents the gen command
 var genCmd = &cobra.Command{
 	Use:   "gen",
@@ -31,7 +36,7 @@ to quickly create a Cobra application.`,
 }
 
 func Gen1d() {
-	line := Init1d(100)
+	line := Init1d(Width)
 	fmt.Println(line)
 
 	count := 100000
@@ -97,7 +102,7 @@ func Init1d(x int) []int {
 }
 
 func Gen2d() {
-	grid := Init2d(200, 50)
+	grid := Init2d(Width, 50)
 	fmt.Println(grid)
 
 	count := 100000
@@ -185,4 +190,7 @@ func Init2d(x int, y int) [][]int {
 
 func init() {
 	rootCmd.AddCommand(genCmd)
+
+	genCmd.PersistentFlags().IntVarP(&Width, "width", "w", 200, "Cell automaton width")
+	// rootCmd.PersistentFlags().IntVarP(&Height, "height", "h", 50, "Cell automaton height. If -t 1d, this value ignored.")
 }
