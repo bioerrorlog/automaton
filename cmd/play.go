@@ -11,6 +11,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+	Mark string
+)
+
 // playCmd represents the play command
 var playCmd = &cobra.Command{
 	Use:   "play",
@@ -24,9 +28,9 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		switch Type {
 		case "1d":
-			play_1d("@")
+			play_1d(Mark)
 		case "2d":
-			play_2d("@")
+			play_2d(Mark)
 			// default
 			// TODO: error handling
 		}
@@ -79,4 +83,6 @@ func replace_2d(str string, mark string) string {
 
 func init() {
 	rootCmd.AddCommand(playCmd)
+
+	rootCmd.PersistentFlags().StringVarP(&Mark, "mark", "m", "@", "String displayed as cells.")
 }
